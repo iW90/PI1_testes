@@ -9,9 +9,9 @@ namespace PortsCalculator.API.Controllers
     [Route("api/[controller]")]
     public class DeviceController : ControllerBase
     {
-        private readonly DeviceUseCase _deviceUseCase;
+        private readonly IDeviceUseCase _deviceUseCase;
 
-        public DeviceController(DeviceUseCase deviceUseCase)
+        public DeviceController(IDeviceUseCase deviceUseCase)
         {
             _deviceUseCase = deviceUseCase;
         }

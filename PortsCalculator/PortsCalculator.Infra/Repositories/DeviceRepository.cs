@@ -13,6 +13,18 @@ namespace PortsCalculator.Infra.Repositories
             _context = context;
         }
 
+        // Retorna todos os dispositivos do banco em ordem alfabética
+        public async Task<IEnumerable<Device>> DevicesList(int pageNumber, int pageSize)
+        {
+            return await _context
+                .Devices
+                    .AsNoTracking()
+                    .OrderBy(x => x.Name)
+                    .Skip(pageNumber - 1)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
         // Busca um dispositivo no banco através da Id
         public async Task<Device?> GetDeviceById(int deviceId)
         {
@@ -28,18 +40,6 @@ namespace PortsCalculator.Infra.Repositories
                 .Devices
                     .Where(x => x.Name.Contains(deviceName))
                     .FirstOrDefaultAsync();
-        }
-
-        // Retorna todos os dispositivos do banco em ordem alfabética
-        public async Task<IEnumerable<Device>> DevicesList(int pageNumber, int pageSize)
-        {
-            return await _context
-                .Devices
-                    .AsNoTracking()
-                    .OrderBy(x => x.Name)
-                    .Skip(pageNumber - 1)
-                    .Take(pageSize)
-                    .ToListAsync();
         }
 
         // Cadastra um novo dispositivo no banco
