@@ -1,0 +1,6 @@
+@PortsCalculator.API_HostAddress = http://localhost:5027
+
+GET {{PortsCalculator.API_HostAddress}}/devices/
+Accept: application/json
+
+###

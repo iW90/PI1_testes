@@ -1,0 +1,130 @@
+﻿using PortsCalculator.Core.Entities;
+using Microsoft.AspNetCore.Mvc;
+using PortsCalculator.App.UseCases;
+using PortsCalculator.App.Models.Requests;
+
+namespace PortsCalculator.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class DeviceController : ControllerBase
+    {
+        private readonly DeviceUseCase _deviceUseCase;
+
+        public DeviceController(DeviceUseCase deviceUseCase)
+        {
+            _deviceUseCase = deviceUseCase;
+        }
+
+        /// <summary>
+        /// Busca os dispositivos cadastrados.
+        /// </summary>
+        /// <returns>Uma lista de todos os dispositivos.</returns>
+        [HttpGet("/devices")]
+        public async Task<ActionResult<IEnumerable<Device>>> GetAllDevices(int pageNumber, int pageSize)
+        {
+            var devices = await _deviceUseCase.GetAllDevices(pageNumber, pageSize);
+            return Ok(devices);
+        }
+
+        /// <summary>
+        /// Busca um dispositivo pela ID.
+        /// </summary>
+        /// <param name="id">O ID do dispositivo a ser encontrado.</param>
+        /// <returns>O dispositivo com o ID especificado.</returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Device>> GetDeviceById(int id)
+        {
+            var device = await _deviceUseCase.GetDeviceById(id);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            return Ok(device);
+        }
+
+        /// <summary>
+        /// Busca um dispositivo pelo nome.
+        /// </summary>
+        /// <param name="name">O nome do dispositivo a ser encontrado.</param>
+        /// <returns>O dispositivo com o nome especificado.</returns>
+        [HttpGet("byname/{name}")]
+        public async Task<ActionResult<Device>> GetDeviceByName(string name)
+        {
+            var device = await _deviceUseCase.GetDeviceByName(name);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            return Ok(device);
+        }
+
+        /// <summary>
+        /// Cadastra um novo dispositivo.
+        /// </summary>
+        /// <param name="device">O dispositivo a ser cadastrado.</param>
+        /// <returns>O status de cadastramento do dispositivo.</returns>
+        [HttpPost]
+        public async Task<IActionResult> CreateDevice([FromBody] DeviceRequest device)
+        {
+            await _deviceUseCase.AddDevice(device);
+            return Ok(device);
+        }
+
+        /// <summary>
+        /// Atualiza um dispositivo existente através da id.
+        /// </summary>
+        /// <param name="id">A ID do dispositivo a ser atualizado.</param>
+        /// <param name="device">Os novos dados do dispositivo.</param>
+        /// <returns>O status de atualização do dispositivo.</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDevice(int id, [FromBody] DeviceRequest device)
+        {
+            try
+            {
+                await _deviceUseCase.UpdateDevice(id, device);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            return Ok(device);
+        }
+
+        /// <summary>
+        /// Exclui um dispositivo cadastrado pela ID.
+        /// </summary>
+        /// <param name="id">A ID do dispositivo a ser excluído.</param>
+        /// <returns>O status de exclusão do dispositivo.</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDevice(int id)
+        {
+            try
+            {
+                await _deviceUseCase.DeleteDevice(id);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Calcula o número total de portas de uma lista de dispositivos.
+        /// </summary>
+        /// <param name="devices">Uma lista de dispositivos.</param>
+        /// <returns>O número total de portas de entrada e de saída, analógicas e digitais.</returns>
+        [HttpGet]
+        public IActionResult GetTotalPorts([FromBody] List<DeviceRequest> devices)
+        {
+            var totalPorts = GetTotalPorts(devices);
+
+            if (totalPorts == null)
+            {
+                return NotFound();
+            }
+            return Ok(totalPorts);
+        }
+    }
+}

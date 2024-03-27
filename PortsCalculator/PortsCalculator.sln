@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsCalculator.API", "PortsCalculator.API\PortsCalculator.API.csproj", "{F6843550-F83A-4213-97D7-1EFE52D7D8A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsCalculator.Infra", "PortsCalculator.Infra\PortsCalculator.Infra.csproj", "{4A994A16-BB4D-4CE5-B371-F68EC292417A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsCalculator.Core", "PortsCalculator.Core\PortsCalculator.Core.csproj", "{2131EDDB-C5D9-4469-88D3-C30B4D4DC2EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsCalculator.App", "PortsCalculator.App\PortsCalculator.App.csproj", "{E2D7C27F-647D-4844-9E1B-743EA2E67761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsCalculator.Tests", "PortsCalculator.Tests\PortsCalculator.Tests.csproj", "{6833980A-7532-4E21-A607-2AB23C21B5CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6843550-F83A-4213-97D7-1EFE52D7D8A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6843550-F83A-4213-97D7-1EFE52D7D8A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6843550-F83A-4213-97D7-1EFE52D7D8A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6843550-F83A-4213-97D7-1EFE52D7D8A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A994A16-BB4D-4CE5-B371-F68EC292417A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A994A16-BB4D-4CE5-B371-F68EC292417A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A994A16-BB4D-4CE5-B371-F68EC292417A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A994A16-BB4D-4CE5-B371-F68EC292417A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2131EDDB-C5D9-4469-88D3-C30B4D4DC2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2131EDDB-C5D9-4469-88D3-C30B4D4DC2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2131EDDB-C5D9-4469-88D3-C30B4D4DC2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2131EDDB-C5D9-4469-88D3-C30B4D4DC2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D7C27F-647D-4844-9E1B-743EA2E67761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D7C27F-647D-4844-9E1B-743EA2E67761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D7C27F-647D-4844-9E1B-743EA2E67761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D7C27F-647D-4844-9E1B-743EA2E67761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6833980A-7532-4E21-A607-2AB23C21B5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6833980A-7532-4E21-A607-2AB23C21B5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6833980A-7532-4E21-A607-2AB23C21B5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6833980A-7532-4E21-A607-2AB23C21B5CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1DC13B76-6B68-4D76-BBC4-CAF8CD65D5B4}
+	EndGlobalSection
+EndGlobal
