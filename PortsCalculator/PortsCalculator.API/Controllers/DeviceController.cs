@@ -2,29 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using PortsCalculator.App.UseCases;
 using PortsCalculator.App.Models.Requests;
+using PortsCalculator.App.Models.Responses;
 
 namespace PortsCalculator.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DeviceController : ControllerBase
+    public class DeviceController : ControllerPortsBase
     {
         private readonly IDeviceUseCase _deviceUseCase;
 
         public DeviceController(IDeviceUseCase deviceUseCase)
         {
             _deviceUseCase = deviceUseCase;
-        }
-
-        /// <summary>
-        /// Busca os dispositivos cadastrados.
-        /// </summary>
-        /// <returns>Uma lista de todos os dispositivos.</returns>
-        [HttpGet("/devices")]
-        public async Task<ActionResult<IEnumerable<Device>>> GetAllDevices(int pageNumber, int pageSize)
-        {
-            var devices = await _deviceUseCase.GetAllDevices(pageNumber, pageSize);
-            return Ok(devices);
         }
 
         /// <summary>
@@ -36,11 +26,7 @@ namespace PortsCalculator.API.Controllers
         public async Task<ActionResult<Device>> GetDeviceById(int id)
         {
             var device = await _deviceUseCase.GetDeviceById(id);
-            if (device == null)
-            {
-                return NotFound();
-            }
-            return Ok(device);
+            return HandleActionResult(device);
         }
 
         /// <summary>
@@ -52,11 +38,18 @@ namespace PortsCalculator.API.Controllers
         public async Task<ActionResult<Device>> GetDeviceByName(string name)
         {
             var device = await _deviceUseCase.GetDeviceByName(name);
-            if (device == null)
-            {
-                return NotFound();
-            }
-            return Ok(device);
+            return HandleActionResult(device);
+        }
+
+        /// <summary>
+        /// Busca os dispositivos cadastrados.
+        /// </summary>
+        /// <returns>Uma lista de todos os dispositivos.</returns>
+        [HttpGet("/devices")]
+        public async Task<ActionResult<IEnumerable<Device>>> GetAllDevices(int pageNumber, int pageSize)
+        {
+            var devices = await _deviceUseCase.GetAllDevices(pageNumber, pageSize);
+            return HandleActionResult(devices);
         }
 
         /// <summary>
@@ -68,7 +61,7 @@ namespace PortsCalculator.API.Controllers
         public async Task<IActionResult> CreateDevice([FromBody] DeviceRequest device)
         {
             await _deviceUseCase.AddDevice(device);
-            return Ok(device);
+            return HandleNoContentResult();
         }
 
         /// <summary>
@@ -83,12 +76,16 @@ namespace PortsCalculator.API.Controllers
             try
             {
                 await _deviceUseCase.UpdateDevice(id, device);
+                return HandleNoContentResult();
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                return HandleBadRequestResult(ex.Message);
             }
-            return Ok(device);
+            catch (Exception ex)
+            {
+                return HandleInternalServerErrorResult(ex.Message);
+            }
         }
 
         /// <summary>
@@ -102,12 +99,16 @@ namespace PortsCalculator.API.Controllers
             try
             {
                 await _deviceUseCase.DeleteDevice(id);
+                return HandleNoContentResult();
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                return HandleBadRequestResult(ex.Message);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return HandleInternalServerErrorResult(ex.Message);
+            }
         }
 
         /// <summary>
@@ -116,15 +117,15 @@ namespace PortsCalculator.API.Controllers
         /// <param name="devices">Uma lista de dispositivos.</param>
         /// <returns>O número total de portas de entrada e de saída, analógicas e digitais.</returns>
         [HttpGet]
-        public IActionResult GetTotalPorts([FromBody] List<DeviceRequest> devices)
+        public IActionResult GetTotalPorts([FromBody] List<DeviceResponse> devices)
         {
-            var totalPorts = GetTotalPorts(devices);
+            var totalPorts = _deviceUseCase.CalculateTotalPorts(devices);
 
             if (totalPorts == null)
             {
-                return NotFound();
+                return HandleNotFoundResult("Nenhum dispositivo encontrado para calcular as portas.");
             }
-            return Ok(totalPorts);
+            return HandleActionResult(totalPorts);
         }
     }
 }

@@ -1,7 +1,7 @@
-using PortsCalculator.Infra.Database;
 using Microsoft.EntityFrameworkCore;
-using PortsCalculator.App.Mappings;
 using PortsCalculator.Infra.Repositories;
+using PortsCalculator.Infra.Database;
+using PortsCalculator.App.Mappings;
 using PortsCalculator.App.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +21,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Configure AutoMapper.
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+// Configure Logger
+builder.Services.AddLogging(builder => builder.AddConsole());
 
 // Configure Dependency Injection
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
