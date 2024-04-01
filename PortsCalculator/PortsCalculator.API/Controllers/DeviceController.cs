@@ -8,7 +8,7 @@ namespace PortsCalculator.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DeviceController : ControllerPortsBase
+    public class DeviceController : DeviceBaseController
     {
         private readonly IDeviceUseCase _deviceUseCase;
 
@@ -23,7 +23,7 @@ namespace PortsCalculator.API.Controllers
         /// <param name="id">O ID do dispositivo a ser encontrado.</param>
         /// <returns>O dispositivo com o ID especificado.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Device>> GetDeviceById(int id)
+        public async Task<ActionResult<DeviceResponse>> GetDeviceById(int id)
         {
             var device = await _deviceUseCase.GetDeviceById(id);
             return HandleActionResult(device);
@@ -35,7 +35,7 @@ namespace PortsCalculator.API.Controllers
         /// <param name="name">O nome do dispositivo a ser encontrado.</param>
         /// <returns>O dispositivo com o nome especificado.</returns>
         [HttpGet("byname/{name}")]
-        public async Task<ActionResult<Device>> GetDeviceByName(string name)
+        public async Task<ActionResult<DeviceResponse>> GetDeviceByName(string name)
         {
             var device = await _deviceUseCase.GetDeviceByName(name);
             return HandleActionResult(device);
@@ -46,7 +46,7 @@ namespace PortsCalculator.API.Controllers
         /// </summary>
         /// <returns>Uma lista de todos os dispositivos.</returns>
         [HttpGet("/devices")]
-        public async Task<ActionResult<IEnumerable<Device>>> GetAllDevices(int pageNumber, int pageSize)
+        public async Task<ActionResult<IEnumerable<DeviceResponse>>> GetAllDevices(int pageNumber, int pageSize)
         {
             var devices = await _deviceUseCase.GetAllDevices(pageNumber, pageSize);
             return HandleActionResult(devices);
@@ -60,8 +60,15 @@ namespace PortsCalculator.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDevice([FromBody] DeviceRequest device)
         {
-            await _deviceUseCase.AddDevice(device);
-            return HandleNoContentResult();
+            try
+            {
+                await _deviceUseCase.AddDevice(device);
+                return HandleNoContentResult();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return HandleBadRequestResult(ex.Message);
+            }
         }
 
         /// <summary>

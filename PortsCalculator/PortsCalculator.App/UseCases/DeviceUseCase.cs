@@ -20,28 +20,6 @@ namespace PortsCalculator.App.UseCases
             _logger = logger;
         }
 
-        public async Task<DevicesListResponse> GetAllDevices(int pageNumber, int pageSize)
-        {
-            try
-            {
-                var devices = await _repository.DevicesList(pageNumber, pageSize);
-                var devicesListResponse = _mapper.Map<IEnumerable<Device>, List<DeviceResponse>>(devices);
-                _logger.LogInformation($"Dispositivos encontrados na página {pageNumber} da {pageSize}.");
-
-                return new DevicesListResponse
-                {
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    Devices = devicesListResponse
-                };
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao tentar encontrar todos os dispositivos cadastrados.");
-                throw;
-            }
-        }
-
         public async Task<DeviceResponse?> GetDeviceById(int deviceId)
         {
             try
@@ -82,6 +60,28 @@ namespace PortsCalculator.App.UseCases
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao tentar encontrar dispositivo pelo nome.");
+                throw;
+            }
+        }
+
+        public async Task<DevicesListResponse> GetAllDevices(int pageNumber, int pageSize)
+        {
+            try
+            {
+                var devices = await _repository.DevicesList(pageNumber, pageSize);
+                var devicesListResponse = _mapper.Map<IEnumerable<Device>, List<DeviceResponse>>(devices);
+                _logger.LogInformation($"Dispositivos encontrados na página {pageNumber} da {pageSize}.");
+
+                return new DevicesListResponse
+                {
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    Devices = devicesListResponse
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar encontrar todos os dispositivos cadastrados.");
                 throw;
             }
         }
@@ -136,7 +136,7 @@ namespace PortsCalculator.App.UseCases
             }
         }
 
-        public PortsResponse GetTotalPorts(List<DeviceResponse> devices)
+        public PortsResponse CalculateTotalPorts(List<DeviceResponse> devices)
         {
             try
             {

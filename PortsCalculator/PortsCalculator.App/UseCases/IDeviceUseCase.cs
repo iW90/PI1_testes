@@ -11,5 +11,6 @@ namespace PortsCalculator.App.UseCases
         Task AddDevice(DeviceRequest deviceRequest);
         Task UpdateDevice(int deviceId, DeviceRequest deviceRequest);
         Task DeleteDevice(int deviceId);
+        PortsResponse CalculateTotalPorts(List<DeviceResponse> devices);
     }
 }
