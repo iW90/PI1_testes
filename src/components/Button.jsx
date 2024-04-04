@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ButtonDeviceToList() {
 
@@ -7,3 +7,5 @@ function ButtonDeviceToList() {
 		<button id="deviceToList" onClick={addDevPopup}>Adicionar dispositivo</button>
 	);
 }
+
+export default Button;

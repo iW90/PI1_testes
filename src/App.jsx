@@ -1,5 +1,5 @@
 import React from 'react';
-import Utils from './components/utils';
+import Utils from './Utils';
 
 const App = () => {
 		const [pagina, setPagina] = React.useState('home');
