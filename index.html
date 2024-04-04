@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gerenciamento de Dispositivos Eletrônicos</title>
+	<script src="script.js"></script>
+
+	<link rel="stylesheet" href="src/styles/reset.css">
+	<link rel="stylesheet" href="src/styles/style.css">
+
+	<!-- Carrega o React, React Dom e Babel -->
+	<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+
+	<div id="root"></div>
+	<script src="./main.js"></script>
+
+
+
+
+	<!-- Atualização automática-->
+	<script>
+		new EventSource('/esbuild').addEventListener('change', () =>
+		  location.reload(),
+		);
+	  </script>
+
+</body>
+</html>

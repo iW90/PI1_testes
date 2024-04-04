@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+/* Base */
+:root {
+	font-size: 16px;
+	--color1: #fff;
+	--color2: #42210B;
+	--color3: #f15a24;
+	--color4: #888;
+	--color5: #ddd;
+	--color6: #333;
+	--font1: 'Century Gothic';
+	--fontTitle: Nova;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	color: var(--color4);
+	width: auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+section {
+	padding-top: 64px;
+	text-align: justify;
+}
+
+hr {
+	width: 50%;
+	height: 4px;
+	background-color: var(--color2);
+	border: none;
+	border-radius: 4px;
+	text-align: center;
+	margin-top: 96px;
+}
+
+h2 {
+	color: var(--color3);
+	font-family: var(--font1);
+	font-size: 1.8rem;
+	font-weight: bold;
+	text-indent: 36px;
+}
+
+h3 {
+	color: var(--color3);
+	font-family: var(--font1);
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+
+p {
+	color: var(--color6);
+	font-family: var(--font1);
+	font-size: 1.4rem;
+	text-indent: 36px;
+}
+
+
+/* style.css */
+
+/* Estilos simples para o menu */
+#menu {
+	background-color: #333;
+	overflow: hidden;
+}
+
+#menu a {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+#menu a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+/* Estilo para as divs de conteúdo */
+.conteudo {
+	display: none;
+	padding: 20px;
+	background-color: #f0f0f0;
+	margin-top: 20px;
+}
