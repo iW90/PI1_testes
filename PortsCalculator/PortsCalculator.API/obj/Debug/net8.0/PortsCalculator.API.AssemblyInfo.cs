@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortsCalculator.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b12f03cc3c9c03923aa9a88e6c0c6aabc063afb4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b840237913fe91d964354656bb50a28b89d75f14")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortsCalculator.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortsCalculator.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
